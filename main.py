@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import os
 
 from matplotlib import pyplot as plt
@@ -33,6 +34,7 @@ def generate_merged_file():
         df2 = df.assign(country=c)
         if c not in ignored_countries:
             df2.columns = map(str.lower, df2.columns)
+            df2['title'] = np.where(df2['title'] == 'Works', 'Works - ' + df2['author(s)'], df2.title)
             df_list.append(df2)
 
     # Concatenate all data into one DataFrame
