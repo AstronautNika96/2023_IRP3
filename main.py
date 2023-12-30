@@ -3,7 +3,7 @@ import os
 
 from matplotlib import pyplot as plt
 
-folder_path = '.'
+folder_path = './data'
 start = 'List_of_books_banned_by_governments_'
 end = '.csv'
 # ignored_countries = ['India']
@@ -13,7 +13,7 @@ combined_file = 'combined_file.csv'
 def generate_merged_file():
     # create a dict of countries
     countries = {}
-    with open("countries.txt", "r") as file:
+    with open(folder_path + "/countries.txt", "r") as file:
         for i, country in enumerate(file.readlines()):
             countries[i + 1] = country.strip()
 
@@ -41,6 +41,7 @@ def generate_merged_file():
     # Save the final result to a new CSV file
     big_df.to_csv(os.path.join(folder_path, combined_file), index=False)
 
+
 def country_bar_plot():
     file_path = os.path.join(folder_path, combined_file)
     df = pd.read_csv(file_path)
@@ -61,7 +62,7 @@ def book_bar_plot():
     plt.show(block=True)
 
 
-def book_bar_authors():
+def authors_bar_plot():
     file_path = os.path.join(folder_path, combined_file)
     df = pd.read_csv(file_path)
     df_gb = df.groupby('author(s)').size().sort_values(ascending=False).to_frame(name='count')
@@ -76,4 +77,4 @@ if __name__ == '__main__':
     generate_merged_file()
     country_bar_plot()
     book_bar_plot()
-    book_bar_authors()
+    authors_bar_plot()
