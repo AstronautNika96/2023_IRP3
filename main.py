@@ -35,6 +35,8 @@ def generate_merged_file():
         if c not in ignored_countries:
             df2.columns = map(str.lower, df2.columns)
             df2['title'] = np.where(df2['title'] == 'Works', 'Works - ' + df2['author(s)'], df2.title)
+            if 'year unbanned' in df2.columns:
+                df2 = df2[df2['year unbanned'].isnull()]
             df_list.append(df2)
 
     # Concatenate all data into one DataFrame
